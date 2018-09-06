@@ -1,15 +1,16 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import headerDiv from '@/components/header'
+import home from '@/components/home'
 
 Vue.use(Router)
 
 export default new Router({
+  mode: 'history',
   routes: [
     {
       path: '/',
-      name: 'headerDiv',
-      // component: headerDiv
+      name: 'home',
+      component: home
     },
   ]
 })

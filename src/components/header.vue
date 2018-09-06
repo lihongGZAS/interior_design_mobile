@@ -1,20 +1,21 @@
 <template>
-  <div class="header-div">
+  <div ref="headerPage">
     <x-header :right-options="{showMore: true}" @on-click-more="showMenus = true">
       <span>全屋定制</span>
       <x-icon slot="overwrite-left" type="navicon" size="35" style="fill:#fff;position:relative;top:-8px;left:-3px;" @click="showMenuModule"></x-icon>
     </x-header>
+    <!-- 语言选择弹框 -->
     <div v-transfer-dom>
-      <actionsheet :menus="menus" v-model="showMenus" show-cancel></actionsheet>
+      <actionsheet :menus="menus" v-model="showMenus"></actionsheet>
     </div>
-    <drawer width="200px;" :show.sync="drawerVisibility" :drawer-style="{'background-color':'red', width: '200px'}">
-      
-      <group title="全屋定制" link="/">
-        <cell title="首页" link="/demo" @click.native="drawerVisibility = false"></cell>
-        <cell title="产品" link="/project" @click.native="drawerVisibility = false"></cell>
-        <cell title="品牌实力" link="/dram" @click.native="drawerVisibility = false"></cell>
-        <cell title="联系我们" link="/demo" @click.native="drawerVisibility = false"></cell>
-      </group>
+    <drawer height="clientHeight" :show.sync="drawerVisibility" :drawer-style="{'background-color':'#888', width: '100%'}">
+      <div slot="drawer">
+        <group style="margin-top:20px;">
+          <cell title="首页" link="/demo" @click.native="drawerVisibility = false"></cell>
+          <cell title="产品" link="/project" @click.native="drawerVisibility = false"></cell>
+          <cell title="品牌实力" link="/trand" @click.native="drawerVisibility = false"></cell>
+        </group>
+      </div>
     </drawer>
   </div>
 </template>
@@ -43,8 +44,17 @@
           'zh-CN': '中文',
           'en': 'English'
         },
-        drawerVisibility: true,
-        entryUrl: document.location.href,
+        drawerVisibility: false,
+        clientHeight: '',
+      }
+    },
+    mounted: function() {
+      this.initHeight();
+    },
+    watch: {
+      // 如果 `clientHeight` 发生改变，这个函数就会运行
+      clientHeight: function () {
+        this.changeFixed(this.clientHeight)
       }
     },
     computed: {
@@ -52,23 +62,30 @@
     },
     methods: {
       showMenuModule: function() {
-        console.log(6666666666);
-        console.log(this.drawerVisibility)
-        if(!this.drawerVisibility) {
-          this.drawerVisibility = true;
-        }
+        this.drawerVisibility = !this.drawerVisibility;
       },
-    },
+      changeFixed(clientHeight){                        //动态修改样式
+        //console.log(clientHeight);
+        this.$refs.headerPage.style.height = clientHeight+'px';
+ 
+      },
+      //获取高度
+      initHeight(){  
+          //获取浏览器可视区域高度
+          // this.clientHeight = $(document).height(); // console.log($(document).height());//浏览器可视区域对象宽度
+          this.clientHeight = `${document.documentElement.clientHeight}`;
+          console.log(this.clientHeight);
+          //当窗口或框架发生改变时触发
+          window.onresize = () => {  
+            //console.log("onresize进来了");
+            this.clientHeight = $(document).height();
+          };
+      }
+    }
   }
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-  /* @import '~vux/src/styles/reset.less';
-  @import '~vux/src/styles/1px.less';
-  @import '~vux/src/styles/tap.less'; */
-  .header-div {
-    height: 100%;
 
-  }
 </style>
