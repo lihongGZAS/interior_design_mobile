@@ -1,18 +1,48 @@
 <template>
   <div class="home-div">
-    <div v-for="(src, index) in list" :key="index" style="background-color:yellow;text-align:center;">
+    <!-- <div v-for="(src, index) in list" :key="index" style="background-color:yellow;text-align:center;">
       <span style="font-size:20px;">Loading</span>
       <x-img :src="src" :webp-src="`${src}?type=webp`" @on-success="success" @on-error="error" class="ximg-demo" error-class="ximg-error" :offset="-100" container="#vux_view_box_body"></x-img>
+    </div> -->
+    <div class="home-desc-img">
+      <img :src="indexImg" alt="首页宣传图片">
+    </div>
+    <div class="company-intro-div">
+      <div class="company-intro-text">{{company_intro_text}}</div>
+      <div class="company-intro-img">
+        <img :src="company_intro_img" alt="企业介绍图片">
+      </div>
+    </div>
+    <div class="series-list">
+      <div class="series-list-info" v-for="(item, i) in 4" :key="i">
+        <div class="series-list-lt">
+          <span>{{`系列${i}`}}</span>
+          <h3>描述描述</h3>
+          <span>+</span>
+        </div>
+        <div class="series-list-rt">
+          <img :src="item.ImgUrl" alt="系列图片">
+        </div>
+      </div>
+    </div>
+    <div class="see-more">
+      <span>查看更多</span>
+    </div>
+    <div class="goods-list">
+      <div class="goods-list-icon">
+        
+      </div>
     </div>
   </div>
 </template>
 
 <script>
-import { XImg } from 'vux'
+import { XImg, XButton } from 'vux'
 export default {
   name: 'home',
   components: {
-    XImg
+    XImg,
+    XButton
   },
   methods: {
     success (src, ele) {
@@ -28,34 +58,16 @@ export default {
   },
   data () {
     return {
-      list: [
-        'https://o5omsejde.qnssl.com/demo/test1.jpg',
-        'https://o5omsejde.qnssl.com/demo/test2.jpg',
-        'https://o5omsejde.qnssl.com/demo/test0.jpg',
-        'https://o5omsejde.qnssl.com/demo/test4.jpg',
-        'https://o5omsejde.qnssl.com/demo/test5.jpg',
-        'https://o5omsejde.qnssl.com/demo/test6.jpg',
-        'https://o5omsejde.qnssl.com/demo/test7.jpg',
-        'https://o5omsejde.qnssl.com/demo/test8.jpg'
-      ]
+      // indexImg: 'https://o5omsejde.qnssl.com/demo/test1.jpg',
+      indexImg: '',
+      company_intro_text: '企业介绍企业介绍企业介绍企业介绍企业介绍企业介绍企业介绍企业介绍企业介绍企业介绍企业介绍企业介绍企业介绍企业介绍企业介绍企业介绍企业介绍',
+      company_intro_img: '',
     }
   }
 }
 </script>
 
 <style scoped>
-  .home-div {
-    margin-top: -621px;
-  }
-  .ximg-demo {
-    width: 80%;
-  }
-  .ximg-error {
-    background-color: #f3f3f3;
-  }
-  .ximg-error:after {
-    content: '加载失败';
-    color: red;
-  }
+  @import '../../static/css/home.css'
 </style>
 

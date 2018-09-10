@@ -8,10 +8,11 @@
     <div v-transfer-dom>
       <actionsheet :menus="menus" v-model="showMenus"></actionsheet>
     </div>
-    <drawer height="clientHeight" :show.sync="drawerVisibility" :drawer-style="{'background-color':'#888', width: '100%'}">
+    <drawer :show.sync="drawerVisibility" :drawer-style="{'background-color':'#888', width: '100%'}">
       <div slot="drawer">
         <group style="margin-top:20px;">
-          <cell title="首页" link="/demo" @click.native="drawerVisibility = false"></cell>
+          <cell title="首页" link="/" @click.native="drawerVisibility = false"></cell>
+          <cell title="全屋定制" link="/" @click.native="drawerVisibility = false"></cell>
           <cell title="产品" link="/project" @click.native="drawerVisibility = false"></cell>
           <cell title="品牌实力" link="/trand" @click.native="drawerVisibility = false"></cell>
         </group>
@@ -64,10 +65,8 @@
       showMenuModule: function() {
         this.drawerVisibility = !this.drawerVisibility;
       },
-      changeFixed(clientHeight){                        //动态修改样式
-        //console.log(clientHeight);
+      changeFixed(clientHeight){ //动态修改样式
         this.$refs.headerPage.style.height = clientHeight+'px';
- 
       },
       //获取高度
       initHeight(){  
@@ -78,7 +77,7 @@
           //当窗口或框架发生改变时触发
           window.onresize = () => {  
             //console.log("onresize进来了");
-            this.clientHeight = $(document).height();
+            this.clientHeight = `${document.documentElement.clientHeight}`;
           };
       }
     }
@@ -87,5 +86,8 @@
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-
+  .vux-drawer {
+    z-index: 999;
+    height: 93.5%;
+  }
 </style>

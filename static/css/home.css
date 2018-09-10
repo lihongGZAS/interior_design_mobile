@@ -1,0 +1,87 @@
+.home-div {
+  margin-top: -621px;
+}
+.ximg-demo {
+  width: 80%;
+}
+.ximg-error {
+  background-color: #f3f3f3;
+}
+.ximg-error:after {
+  content: '加载失败';
+  color: red;
+}
+.home-desc-img {
+  width: 100%;
+  height: 560px;
+}
+.company-intro-div {
+  width: 100%;
+  height: 560px;
+  background: #59c3fb;
+  position: relative;
+}
+.company-intro-text {
+  width: 50%;
+  background: #44535c;
+  color: #fff;
+  position: absolute;
+  right: 0;
+  top: 76px;
+}
+.company-intro-img {
+  width: 190px;
+  height: 190px;
+  border: 1px solid #fff;
+  position: absolute;
+  left: 20px;
+  bottom: 52px;
+}
+
+/* series desc */
+.series-list {
+  width: 100%;
+  padding-top: 72px;
+}
+.series-list-info {
+  width: 97%;
+  height: 160px;
+  border: 1px solid #888;
+  box-sizing: border-box;
+  margin-left: 1%;
+  margin-right: 2%;
+  display: table;
+}
+.series-list-lt {
+  width: 160px;
+  height: 100%;
+  border: 1px solid red;
+  box-sizing: border-box;
+  background: #404040;
+  color: #fff;
+  display: table-cell;
+  padding-left: 10px;
+  padding-top: 24px;
+  text-align: left;
+}
+.series-list-lt h3 {
+  margin-top: 20px;
+  margin-bottom: 30px;
+}
+.series-list-rt {
+  display: table-cell;
+}
+.series-list-rt img {
+  width: 100%;
+  height: 100%;
+}
+
+.see-more {
+  padding: 34px 0px;
+  color: #fff;
+}
+
+/* goods list info */
+.goods-list {
+  width: 100%;
+}
