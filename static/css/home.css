@@ -84,4 +84,19 @@
 /* goods list info */
 .goods-list {
   width: 100%;
+  border: 1px solid #fff;
+  box-sizing: border-box;
+}
+.goods-list-icons {
+  width: 100%;
+  border: 1px solid #fff;
+  box-sizing: border-box;
+  display: table;
+  color: #fff;
+}
+.goods-list-icon {
+  height: 120px;
+  display: table-cell;
+  border: 1px solid red;
+  vertical-align: middle;
 }

@@ -29,8 +29,12 @@
       <span>查看更多</span>
     </div>
     <div class="goods-list">
-      <div class="goods-list-icon">
-        
+      <div class="goods-list-icons">
+        <div class="goods-list-icon">111</div>
+        <div class="goods-list-icon">123dd</div>
+        <div class="goods-list-icon">112dd</div>
+        <div class="goods-list-icon">122dd</div>
+        <div class="goods-list-icon">111</div>
       </div>
     </div>
   </div>
