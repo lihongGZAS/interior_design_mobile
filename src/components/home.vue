@@ -30,11 +30,24 @@
     </div>
     <div class="goods-list">
       <div class="goods-list-icons">
-        <div class="goods-list-icon">111</div>
-        <div class="goods-list-icon">123dd</div>
-        <div class="goods-list-icon">112dd</div>
-        <div class="goods-list-icon">122dd</div>
-        <div class="goods-list-icon">111</div>
+        <div class="goods-list-icon">
+          <img :src="iconLt" alt="">
+        </div>
+        <div class="goods-list-icon">
+          <img :src="iconHt" alt="">
+          <p>测试</p>
+        </div>
+        <div class="goods-list-icon">
+          <img :src="iconHt" alt="">
+          <p>测试2</p>
+        </div>
+        <div class="goods-list-icon">
+          <img :src="iconHt" alt="">
+          <p>测试3</p>
+        </div>
+        <div class="goods-list-icon">
+          <img :src="iconRt" alt="">
+        </div>
       </div>
     </div>
   </div>
@@ -46,7 +59,7 @@ export default {
   name: 'home',
   components: {
     XImg,
-    XButton
+    XButton,
   },
   methods: {
     success (src, ele) {
@@ -66,6 +79,10 @@ export default {
       indexImg: '',
       company_intro_text: '企业介绍企业介绍企业介绍企业介绍企业介绍企业介绍企业介绍企业介绍企业介绍企业介绍企业介绍企业介绍企业介绍企业介绍企业介绍企业介绍企业介绍',
       company_intro_img: '',
+      
+      iconLt: '../../static/images/iconLt.png',
+      iconRt: '../../static/images/iconRt.png',
+      iconHt: '../../static/images/iconHeart.png'
     }
   }
 }
