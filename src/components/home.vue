@@ -49,6 +49,38 @@
           <img :src="iconRt" alt="">
         </div>
       </div>
+      <div class="goods-info-show">
+        <div class="goods-img-pos">
+          <div class="goods-inter">
+            <div class="goods-info-img">
+              <img src="" alt="图片">
+            </div>
+          </div>
+          <div class="goods-info-intro">
+            <h4>{{goods_name}}</h4>
+            <span>{{goods_desc}}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="see-more">
+      <span>查看更多</span>
+    </div>
+    <div class="home-footer">
+      <div class="logo-bq">
+        <h3>版权说明</h3>
+        <div class="footer-logo">
+          <img :src="footer_logo" alt="logo">
+        </div>
+      </div>
+      <div class="footer-icon">
+        <div class="footer-icon-1">
+          <img :src="footer_icon1" alt="icon1">
+        </div>
+        <div class="footer-icon-1">
+          <img :src="footer_icon2" alt="icon2">
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -61,6 +93,24 @@ export default {
     XImg,
     XButton,
   },
+  data () {
+    return {
+      // indexImg: 'https://o5omsejde.qnssl.com/demo/test1.jpg',
+      indexImg: '',
+      company_intro_text: '企业介绍企业介绍企业介绍企业介绍企业介绍企业介绍企业介绍企业介绍企业介绍企业介绍企业介绍企业介绍企业介绍企业介绍企业介绍企业介绍企业介绍',
+      company_intro_img: '',
+      
+      iconLt: '../../static/images/iconLt.png',
+      iconRt: '../../static/images/iconRt.png',
+      iconHt: '../../static/images/iconHeart.png',
+      goods_name: '衣帽柜定制1',
+      goods_desc: '现代简约',
+
+      footer_logo: '',
+      footer_icon1: '',
+      footer_icon2: ''
+    }
+  },
   methods: {
     success (src, ele) {
       console.log('success load', src)
@@ -71,18 +121,6 @@ export default {
       console.log('error load', msg, src)
       const span = ele.parentNode.querySelector('span')
       span.innerText = 'load error'
-    }
-  },
-  data () {
-    return {
-      // indexImg: 'https://o5omsejde.qnssl.com/demo/test1.jpg',
-      indexImg: '',
-      company_intro_text: '企业介绍企业介绍企业介绍企业介绍企业介绍企业介绍企业介绍企业介绍企业介绍企业介绍企业介绍企业介绍企业介绍企业介绍企业介绍企业介绍企业介绍',
-      company_intro_img: '',
-      
-      iconLt: '../../static/images/iconLt.png',
-      iconRt: '../../static/images/iconRt.png',
-      iconHt: '../../static/images/iconHeart.png'
     }
   }
 }
