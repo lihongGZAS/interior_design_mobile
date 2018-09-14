@@ -10,7 +10,7 @@
           <h4>{{item.seriesStyle}}</h4>
           <p>{{item.desc}}</p>
           <div class="detail-btn-box">
-            <button class="see-detail-btn">查看详情</button>
+            <div class="detail-vux-button">更多详情</div>
           </div>
         </div>
       </div>
@@ -19,8 +19,12 @@
 </template>
 
 <script>
+import { XButton } from 'vux'
 export default {
   name: 'custom',
+  components: {
+    XButton
+  },
   data() {
     return {
       seriesData: [
