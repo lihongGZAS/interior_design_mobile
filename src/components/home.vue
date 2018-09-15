@@ -1,50 +1,51 @@
 <template>
   <div class="home-div">
-    <!-- <div v-for="(src, index) in list" :key="index" style="background-color:yellow;text-align:center;">
-      <span style="font-size:20px;">Loading</span>
-      <x-img :src="src" :webp-src="`${src}?type=webp`" @on-success="success" @on-error="error" class="ximg-demo" error-class="ximg-error" :offset="-100" container="#vux_view_box_body"></x-img>
-    </div> -->
-    <div class="home-desc-img">
+    <div class="home-desc-img" :style="{height: homeImgHeight + 'px'}">
       <img :src="indexImg" alt="首页宣传图片">
     </div>
-    <div class="company-intro-div">
-      <div class="company-intro-text">{{company_intro_text}}</div>
+    <div class="company-intro-div" :style="{backgroundImage: 'url(' + indexImg + ')',backgroundSize: '100%'}">
+      <div class="company-intro-text">
+        <h3>{{company_intrro_title}}</h3>
+        {{company_intro_text}}
+      </div>
       <div class="company-intro-img">
         <img :src="company_intro_img" alt="企业介绍图片">
       </div>
     </div>
     <div class="series-list">
-      <div class="series-list-info" v-for="(item, i) in 4" :key="i">
+      <div class="series-list-info" v-for="(item, i) in seriesData" :key="i">
         <div class="series-list-lt">
-          <span>{{`系列${i}`}}</span>
-          <h3>描述描述</h3>
-          <span>+</span>
+          <span>{{item.P1}}</span>
+          <h3>{{item.P2}}</h3>
+          <span class="see-more-span">+</span>
         </div>
         <div class="series-list-rt">
-          <img :src="item.ImgUrl" alt="系列图片">
+          <div class="series-rt-img">
+            <img :src="item.ImgUrl" alt="系列图片">
+          </div>
         </div>
       </div>
     </div>
     <div class="see-more">
-      <span>查看更多</span>
+      <span>查看更多></span>
     </div>
     <div class="goods-list">
       <div class="goods-list-icons">
         <div class="goods-list-icon">
           <img :src="iconLt" alt="">
         </div>
-        <div class="goods-list-icon">
-          <img :src="iconHt" alt="">
-          <p>测试</p>
+        <div class="goods-list-icon" v-for="(item, i) in goodsIcons" :key="i">
+          <img :src="item.ImgUrl" alt="">
+          <p>{{item.Name}}</p>
         </div>
-        <div class="goods-list-icon">
+        <!-- <div class="goods-list-icon">
           <img :src="iconHt" alt="">
           <p>测试2</p>
         </div>
         <div class="goods-list-icon">
           <img :src="iconHt" alt="">
           <p>测试3</p>
-        </div>
+        </div> -->
         <div class="goods-list-icon">
           <img :src="iconRt" alt="">
         </div>
@@ -53,7 +54,7 @@
         <div class="goods-img-pos">
           <div class="goods-inter">
             <div class="goods-info-img">
-              <img src="" alt="图片">
+              <img :src="goods_img" alt="图片">
             </div>
           </div>
           <div class="goods-info-intro">
@@ -95,14 +96,23 @@ export default {
   },
   data () {
     return {
-      // indexImg: 'https://o5omsejde.qnssl.com/demo/test1.jpg',
+      homeImgHeight: 606,
       indexImg: '',
-      company_intro_text: '企业介绍企业介绍企业介绍企业介绍企业介绍企业介绍企业介绍企业介绍企业介绍企业介绍企业介绍企业介绍企业介绍企业介绍企业介绍企业介绍企业介绍',
+      company_intrro_title: '',
+      company_intro_text: '',
       company_intro_img: '',
+
+      seriesData: [],
+      goodsIcons: [
+        {ImgUrl: '../../static/images/iconHeart.png', Name: '衣帽柜'},
+        {ImgUrl: '../../static/images/iconHeart.png', Name: '收纳柜'},
+        {ImgUrl: '../../static/images/iconHeart.png', Name: '鞋柜'}
+      ],
       
       iconLt: '../../static/images/iconLt.png',
       iconRt: '../../static/images/iconRt.png',
-      iconHt: '../../static/images/iconHeart.png',
+      // iconHt: '../../static/images/iconHeart.png',
+      goods_img: '',
       goods_name: '衣帽柜定制1',
       goods_desc: '现代简约',
 
@@ -111,17 +121,37 @@ export default {
       footer_icon2: ''
     }
   },
+  mounted: function() {
+    this.init();
+    this.clientHeight = `${document.documentElement.clientHeight}`;
+    console.log(this.clientHeight);
+    // console.log(this.$refs.headerPage.offsetHight);
+  },
   methods: {
-    success (src, ele) {
-      console.log('success load', src)
-      const span = ele.parentNode.querySelector('span')
-      ele.parentNode.removeChild(span)
+    init: function() {
+      this.$http.get("https://www.ehometd.com/temporary/api/other/all.php?fc=bianlifile&FID=440&Class=3", {
+        params: {
+          ID: 12345
+        }
+      })
+      .then(response => {
+        // console.log(response);
+        this.indexImg = response.data.Sub[488].File[0].ImgUrl;
+        this.company_intrro_title = response.data.Sub[478].File[0].P1;
+        this.company_intro_text = response.data.Sub[478].File[0].P2;
+        this.company_intro_img = response.data.Sub[478].File[0].ImgUrl;
+
+        this.seriesData = response.data.Sub[477].File;
+        // this.goodsIcons = response.data.Sub[]
+
+        // this.goods_img = response.data.Sub[488].File[0].ImgUrl;
+
+        this.footer_logo = response.data.Sub[483].File[1].ImgUrl;
+      })
+      .catch(function(error) {
+        console.log(error);
+      });
     },
-    error (src, ele, msg) {
-      console.log('error load', msg, src)
-      const span = ele.parentNode.querySelector('span')
-      span.innerText = 'load error'
-    }
   }
 }
 </script>

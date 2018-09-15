@@ -1,19 +1,12 @@
 .home-div {
   margin-top: -621px;
 }
-.ximg-demo {
-  width: 80%;
-}
-.ximg-error {
-  background-color: #f3f3f3;
-}
-.ximg-error:after {
-  content: '加载失败';
-  color: red;
-}
 .home-desc-img {
   width: 100%;
-  height: 560px;
+}
+.home-desc-img img {
+  width: 100%;
+  height: 100%;
 }
 .company-intro-div {
   width: 100%;
@@ -28,20 +21,30 @@
   position: absolute;
   right: 0;
   top: 76px;
+  text-align: left;
+  padding-top: 30px;
+  padding-left: 16px;
+}
+.company-intro-text h3 {
+  margin-bottom: 20px;
 }
 .company-intro-img {
   width: 190px;
-  height: 190px;
-  border: 1px solid #fff;
   position: absolute;
   left: 20px;
   bottom: 52px;
+}
+.company-intro-img img {
+  width: 100%;
+  height: 100%;
+  vertical-align: middle;
 }
 
 /* series desc */
 .series-list {
   width: 100%;
   padding-top: 72px;
+  overflow: hidden;
 }
 .series-list-info {
   width: 97%;
@@ -53,9 +56,7 @@
   display: table;
 }
 .series-list-lt {
-  width: 160px;
-  height: 100%;
-  border: 1px solid red;
+  width: 40%;
   box-sizing: border-box;
   background: #404040;
   color: #fff;
@@ -65,34 +66,40 @@
   text-align: left;
 }
 .series-list-lt h3 {
-  margin-top: 20px;
-  margin-bottom: 30px;
+  margin-top: 14px;
+  margin-bottom: 18px;
+}
+.series-list-lt span.see-more-span {
+  font-weight: bolder;
 }
 .series-list-rt {
+  width: 60%;
   display: table-cell;
 }
-.series-list-rt img {
+.series-rt-img {
+  width: 100%;
+}
+.series-rt-img img {
   width: 100%;
   height: 100%;
+  margin-bottom: -42px;
+  vertical-align: middle;
 }
 
 .see-more {
   padding: 26px 0px;
-  color: #fff;
 }
 
 /* goods list info */
 .goods-list {
   width: 100%;
-  border: 1px solid #fff;
   box-sizing: border-box;
 }
 .goods-list-icons {
   width: 100%;
-  border: 1px solid #fff;
+  border: 1px solid #59c3fb;
   box-sizing: border-box;
   display: table;
-  color: #fff;
 }
 .goods-list-icon {
   height: 120px;
@@ -138,7 +145,6 @@
   transform: translateX(-50%);
 }
 .goods-info-intro {
-  border: 1px solid yellow;
   position: absolute;
   bottom: 20px;
   left: 50%;
@@ -157,6 +163,7 @@
   position: relative;
 }
 .logo-bq {
+  width: 50%;
   border: 1px solid #fff;
   color: #fff;
   position: absolute;
@@ -165,9 +172,7 @@
   transform: translate(-50%, -50%);
 }
 .footer-logo {
-  width: 160px;
-  height: 60px;
-  margin-top: 30px;
+  margin-top: 10px;
   border: 1px solid gold;
   box-sizing: border-box;
 }
@@ -176,7 +181,7 @@
   height: 110px;
   border: 1px solid #fff;
   position: absolute;
-  right: 20px;
+  right: 12px;
   top: 50px;
 }
 .footer-icon-1 {

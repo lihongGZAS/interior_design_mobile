@@ -14,7 +14,7 @@
           <cell title="首页" link="/" @click.native="drawerVisibility = false"></cell>
           <cell title="全屋定制" link="/customization" @click.native="drawerVisibility = false"></cell>
           <cell title="产品" link="/product" @click.native="drawerVisibility = false"></cell>
-          <cell title="品牌实力" link="/trand" @click.native="drawerVisibility = false"></cell>
+          <cell title="品牌实力" link="/trademark" @click.native="drawerVisibility = false"></cell>
         </group>
       </div>
     </drawer>
