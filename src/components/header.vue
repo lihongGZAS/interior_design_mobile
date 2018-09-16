@@ -1,7 +1,9 @@
 <template>
   <div ref="headerPage">
     <x-header :right-options="{showMore: true}" @on-click-more="showMenus = true">
-      <span>全屋定制</span>
+      <span>
+        <img :src="menuLogo" alt="">
+      </span>
       <x-icon slot="overwrite-left" type="navicon" size="35" style="fill:#fff;position:relative;top:-8px;left:-3px;" @click="showMenuModule"></x-icon>
     </x-header>
     <!-- 语言选择弹框 -->
@@ -47,9 +49,11 @@
         },
         drawerVisibility: false,
         clientHeight: '',
+        menuLogo: ''
       }
     },
     mounted: function() {
+      this.init();
       this.initHeight();
     },
     watch: {
@@ -62,6 +66,20 @@
       
     },
     methods: {
+      init: function() {
+        this.$http.get("https://www.ehometd.com/temporary/api/other/all.php?fc=bianlifile&FID=440&Class=3", {
+          params: {
+            ID: 12345
+          }
+        })
+        .then(response => {
+          console.log(response);
+          this.menuLogo = response.data.Sub[483].File[0].ImgUrl;
+        })
+        .catch(function(error) {
+          console.log(error);
+        });
+      },
       showMenuModule: function() {
         this.drawerVisibility = !this.drawerVisibility;
       },
