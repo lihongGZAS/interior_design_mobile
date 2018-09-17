@@ -1,47 +1,51 @@
 <template>
-  <div class="trademark-box">
-    <!-- <swiper loop auto :list="demo06_list" :index="demo06_index" @on-index-change="demo06_onIndexChange"></swiper>
-    <p>current index: {{demo06_index}}</p> -->
-      <!-- <div style="width:40px;height:40px;border: 1px solid red;"></div> -->
+  <div class="trademark-box" ref="headerPage" :style="{height: trademarkHeight + 'px',marginTop: '-' + trademarkHeight + 'px'}">
+    <swiper :auto="isAuto" :height="trademarkHeight+'px'" :min-moving-distance="50">
+      <swiper-item v-for="(item, i) in seriesData" :key="i">
+        <div class="series-list">
+          <div class="series-list-content">
+            <div class="series-img">
+              <img :src="item.ImgUrl" alt="系列图">
+            </div>
+            <div class="series-desc">
+              <h3>{{item.P1}}</h3>
+              <h4>{{item.P2}}</h4>
+              <p>{{item.P3}}</p>
+            </div>
+          </div>
+        </div>
+      </swiper-item>
+    </swiper>
   </div>
 </template>
 
 <script>
-import { Swiper } from 'vux'
-// const baseList = [{
-//   url: 'javascript:',
-//   img: 'https://ww1.sinaimg.cn/large/663d3650gy1fq66vvsr72j20p00gogo2.jpg',
-//   title: '送你一朵fua'
-// }, {
-//   url: 'javascript:',
-//   img: 'https://ww1.sinaimg.cn/large/663d3650gy1fq66vw1k2wj20p00goq7n.jpg',
-//   title: '送你一辆车'
-// }, {
-//   url: 'javascript:',
-//   img: 'https://static.vux.li/demo/5.jpg', // 404
-//   title: '送你一次旅行',
-//   fallbackImg: 'https://ww1.sinaimg.cn/large/663d3650gy1fq66vw50iwj20ff0aaaci.jpg'
-// }]
-// const urlList = baseList.map((item, index) => ({
-//   url: 'http://m.baidu.com',
-//   img: item.img,
-//   fallbackImg: item.fallbackImg,
-//   title: `(可点击)${item.title}`
-// }))
+import { Swiper, SwiperItem } from 'vux'
 export default {
   name: 'trademark',
   components: {
     Swiper,
+    SwiperItem
   },
   data() {
     return {
-      // demo03_list: demoList,
-      // demo06_list: urlList,
-      // demo06_index: 0,
+      clientHeight: 0,
+      trademarkHeight: 0,
+      seriesData: [],
+      series_img: '',
+      isAuto: true
     }
   },
   mounted: function() {
     this.init();
+    this.clientHeight = `${document.documentElement.clientHeight}`;
+    this.trademarkHeight = Number(this.clientHeight) - 60;
+  },
+  watch: {
+    // 如果 `clientHeight` 发生改变，这个函数就会运行
+    clientHeight: function () {
+      this.changeFixed(this.clientHeight)
+    }
   },
   methods: {
     init: function() {
@@ -51,14 +55,14 @@ export default {
         }
       })
       .then(response => {
-        console.log(response);
+        this.seriesData = response.data.Sub[482].File;
       })
       .catch(function(error) {
         console.log(error);
       });
     },
-    demo06_onIndexChange (index) {
-      this.demo06_index = index
+    changeFixed(clientHeight){ //动态修改样式
+      this.$refs.headerPage.style.height = clientHeight+'px';
     },
   }
 }

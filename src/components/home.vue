@@ -2,6 +2,12 @@
   <div class="home-div">
     <div class="home-desc-img" :style="{height: homeImgHeight + 'px'}">
       <img :src="indexImg" alt="首页宣传图片">
+      <div class="company-logo-desc">
+        <div class="home-top-logo">
+          <img :src="home_top_logo" alt="">
+        </div>
+        <h5>{{company_home_desc}}</h5>
+      </div>
     </div>
     <div class="company-intro-div" :style="{backgroundImage: 'url(' + indexImg + ')',backgroundSize: '100%'}">
       <div class="company-intro-text">
@@ -34,18 +40,10 @@
         <div class="goods-list-icon">
           <img :src="iconLt" alt="">
         </div>
-        <div class="goods-list-icon" v-for="(item, i) in goodsIcons" :key="i">
+        <div class="goods-list-icon" v-for="(item, i) in showIcons" :key="i">
           <img :src="item.ImgUrl" alt="">
           <p>{{item.Name}}</p>
         </div>
-        <!-- <div class="goods-list-icon">
-          <img :src="iconHt" alt="">
-          <p>测试2</p>
-        </div>
-        <div class="goods-list-icon">
-          <img :src="iconHt" alt="">
-          <p>测试3</p>
-        </div> -->
         <div class="goods-list-icon">
           <img :src="iconRt" alt="">
         </div>
@@ -96,22 +94,27 @@ export default {
   },
   data () {
     return {
-      homeImgHeight: 606,
+      clientHeight: 0, // 获取当前设备可视区域高度
+      margin_top: 0,
+      homeImgHeight: 0,
       indexImg: '',
+      home_top_logo: '',
+      company_home_desc: '',
       company_intrro_title: '',
       company_intro_text: '',
       company_intro_img: '',
 
       seriesData: [],
-      goodsIcons: [
-        {ImgUrl: '../../static/images/iconHeart.png', Name: '衣帽柜'},
-        {ImgUrl: '../../static/images/iconHeart.png', Name: '收纳柜'},
-        {ImgUrl: '../../static/images/iconHeart.png', Name: '鞋柜'}
-      ],
       
       iconLt: '../../static/images/iconLt.png',
       iconRt: '../../static/images/iconRt.png',
       // iconHt: '../../static/images/iconHeart.png',
+
+      productIcons: [], // 未点击时的图标
+      productIcons2: [], // 点击过的高亮图标
+      productIcons11: [], // 中间值图标数组
+      showIcons: [], // 展示出来的图标
+
       goods_img: '',
       goods_name: '衣帽柜定制1',
       goods_desc: '现代简约',
@@ -125,6 +128,10 @@ export default {
     this.init();
     this.clientHeight = `${document.documentElement.clientHeight}`;
     console.log(this.clientHeight);
+
+    this.homeImgHeight = Number(this.clientHeight) - 52;
+    this.margin_top = Number(this.clientHeight) - 60 + 'px';
+    console.log(this.margin_top);
     // console.log(this.$refs.headerPage.offsetHight);
   },
   methods: {
@@ -135,23 +142,62 @@ export default {
         }
       })
       .then(response => {
-        // console.log(response);
         this.indexImg = response.data.Sub[488].File[0].ImgUrl;
+        this.company_home_desc = '专业致力于全屋定制研发、制造、销售于一体企业';
         this.company_intrro_title = response.data.Sub[478].File[0].P1;
         this.company_intro_text = response.data.Sub[478].File[0].P2;
         this.company_intro_img = response.data.Sub[478].File[0].ImgUrl;
 
         this.seriesData = response.data.Sub[477].File;
-        // this.goodsIcons = response.data.Sub[]
 
-        // this.goods_img = response.data.Sub[488].File[0].ImgUrl;
-
+        this.home_top_logo = response.data.Sub[483].File[3].ImgUrl;
         this.footer_logo = response.data.Sub[483].File[1].ImgUrl;
       })
       .catch(function(error) {
         console.log(error);
       });
-    },
+
+      // 产品系列图标
+      this.$http.get("https://www.ehometd.com/temporary/api/other/all.php?fc=bianlifile&FID=440&Class=3", {
+        params: {
+          ID: 459
+        }
+      })
+      .then(response => {
+        this.productIcons = response.data.Sub[527].Sub[528].File;
+        this.productIcons2 = response.data.Sub[527].Sub[529].File;
+
+        this.productIcons11 = JSON.parse(JSON.stringify(this.productIcons)); // 深拷贝获取初始productIcons的数据
+        for(let i=0; i<3; i++) {
+          this.showIcons.push(this.productIcons11[i]);
+        }
+        for(let k=0; k<this.productIcons2.length; k++) {
+          if(this.showIcons[0].Name === this.productIcons2[k].Name) {
+            this.showIcons[0] = this.productIcons2[k]; // 设置第一个系列图标高亮显示
+          }
+        }
+      })
+      .catch(function(error) {
+        console.log(error);
+      });
+
+      // 请求产品信息
+      this.$http.get("https://www.ehometd.com/temporary/api/other/all.php?fc=bianlifile&FID=459&Class=3", {
+        params: {
+          ID: 459
+        }
+      })
+      .then(response => {
+        console.log(response);
+        this.goods_img = response.data.Sub[460].File[0].ImgUrl; // 初始默认为第一个系列的第一张图片
+        this.goods_name = response.data.Sub[460].File[0].Name;
+        this.goods_desc = response.data.Sub[460].File[0].Desc;
+      })
+      .catch(function(error) {
+        console.log(error);
+      });
+
+    }
   }
 }
 </script>

@@ -1,25 +1,17 @@
 .custom-series {
-  margin-top: -621px;
+  margin-top: -610px;
 }
 .series-list {
   width: 100%;
   height: 540px;
-  border: 1px solid black;
-  box-sizing: border-box;
-  padding: 14px;
 }
 .series-list-content {
   width: 100%;
   height: 520px;
-  border: 1px solid red;
-  box-sizing: border-box;
   position: relative;
 }
 .series-img {
   width: 100%;
-  height: 300px;
-  border: 1px solid #fff;
-  box-sizing: border-box;
 }
 .series-img img {
   width: 100%;
@@ -29,7 +21,6 @@
   width: 66%;
   background: #fff;
   border: 1px solid #777;
-  border-left: none;
   box-sizing: border-box;
   position: absolute;
   bottom: 20px;
@@ -41,6 +32,9 @@
 .series-desc h4 {
   margin-top: 10px;
   margin-bottom: 14px;
+}
+.series-desc p {
+  font-size: 14px;
 }
 .detail-btn-box {
   width: 100%;

@@ -1,22 +1,19 @@
 <template>
   <div ref="headerPage">
-    <x-header :right-options="{showMore: true}" @on-click-more="showMenus = true">
+    <x-header :right-options="{showMore: true}" style="background-color:#fff;" @on-click-more="showMenus = true">
       <span>
         <img :src="menuLogo" alt="">
       </span>
-      <x-icon slot="overwrite-left" type="navicon" size="35" style="fill:#fff;position:relative;top:-8px;left:-3px;" @click="showMenuModule"></x-icon>
+      <x-icon slot="overwrite-left" type="navicon" size="35" style="fill:#222;position:relative;top:-8px;left:-3px;" @click="showMenuModule"></x-icon>
     </x-header>
-    <!-- 语言选择弹框 -->
-    <div v-transfer-dom>
-      <actionsheet :menus="menus" v-model="showMenus"></actionsheet>
-    </div>
-    <drawer :show.sync="drawerVisibility" :drawer-style="{'background-color':'#888', width: '100%'}">
-      <div slot="drawer">
+    <drawer :show.sync="drawerVisibility" :drawer-style="{'background-color':'#888', width: '100%'}" :style="{height: drawerHeight}">
+      <div slot="drawer" @touchmove.prevent>
         <group style="margin-top:20px;">
           <cell title="首页" link="/" @click.native="drawerVisibility = false"></cell>
           <cell title="全屋定制" link="/customization" @click.native="drawerVisibility = false"></cell>
           <cell title="产品" link="/product" @click.native="drawerVisibility = false"></cell>
           <cell title="品牌实力" link="/trademark" @click.native="drawerVisibility = false"></cell>
+          <cell title="预约" link="/trademark" @click.native="drawerVisibility = false"></cell>
         </group>
       </div>
     </drawer>
@@ -40,16 +37,11 @@
     },
     data () {
       return {
-        showMenu: false,
         showMenus: false,
-        menus: {
-          'language.noop': '<span class="menu-title">Language</span>',
-          'zh-CN': '中文',
-          'en': 'English'
-        },
         drawerVisibility: false,
         clientHeight: '',
-        menuLogo: ''
+        menuLogo: '',
+        drawerHeight: ''
       }
     },
     mounted: function() {
@@ -73,7 +65,7 @@
           }
         })
         .then(response => {
-          console.log(response);
+          // console.log(response);
           this.menuLogo = response.data.Sub[483].File[0].ImgUrl;
         })
         .catch(function(error) {
@@ -89,12 +81,11 @@
       //获取高度
       initHeight(){  
           //获取浏览器可视区域高度
-          // this.clientHeight = $(document).height(); // console.log($(document).height());//浏览器可视区域对象宽度
           this.clientHeight = `${document.documentElement.clientHeight}`;
-          console.log(this.clientHeight);
+          this.drawerHeight = Number(this.clientHeight) - 60 + 'px';
+          // console.log(this.clientHeight);
           //当窗口或框架发生改变时触发
           window.onresize = () => {  
-            //console.log("onresize进来了");
             this.clientHeight = `${document.documentElement.clientHeight}`;
           };
       }
@@ -106,6 +97,18 @@
 <style scoped>
   .vux-drawer {
     z-index: 999;
-    height: 93.5%;
+  }
+  .vux-header {
+    height: 60px;
+  }
+ .vux-header-title {
+    height: 52px !important;
+  }
+  .vux-header .vux-header-title > span {
+    height: 52px !important;
+  }
+  .vux-header-title-area, .vux-header .vux-header-title>span>img{
+    height: 32px;
+    margin-top: 10px;
   }
 </style>

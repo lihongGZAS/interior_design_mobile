@@ -1,8 +1,28 @@
 .home-div {
-  margin-top: -621px;
+  margin-top: -610px;
 }
 .home-desc-img {
   width: 100%;
+  position: relative;
+}
+.company-logo-desc {
+  width: 100%;
+  position: absolute;
+  display: table-cell;
+  vertical-align: middle;
+  box-sizing: border-box;
+  left: 0px;
+  top: 110px;
+}
+.company-logo-desc h5 {
+  color: #fff;
+  margin-top: 20px;
+}
+.home-top-logo {
+  width: 30%;
+  margin-left: 50%;
+  transform: translateX(-50%);
+  vertical-align: middle;
 }
 .home-desc-img img {
   width: 100%;
@@ -16,14 +36,13 @@
 }
 .company-intro-text {
   width: 50%;
-  background: #44535c;
-  color: #fff;
+  background: #ddc47d;
+  color: #222;
   position: absolute;
   right: 0;
-  top: 76px;
+  top: 34px;
   text-align: left;
-  padding-top: 30px;
-  padding-left: 16px;
+  padding: 30px 26px 34px 16px;
 }
 .company-intro-text h3 {
   margin-bottom: 20px;
@@ -97,14 +116,11 @@
 }
 .goods-list-icons {
   width: 100%;
-  border: 1px solid #59c3fb;
-  box-sizing: border-box;
   display: table;
 }
 .goods-list-icon {
   height: 120px;
   display: table-cell;
-  border: 1px solid red;
   vertical-align: middle;
 }
 .goods-list-icon img {
@@ -117,16 +133,12 @@
   width: 100%;
   height: 350px;
   position: relative;
-  border: 1px solid #888;
-  box-sizing: border-box;
   margin-top: 20px;
 }
 .goods-img-pos {
   width: 80%;
   height: 350px;
-  border: 1px solid red;
   box-shadow: 0 0 8px #999;
-  box-sizing: border-box;
   position: absolute;
   left: 50%;
   top: 50%;
@@ -137,12 +149,15 @@
 }
 .goods-info-img {
   width: 88%;
-  height: 260px;
   border: 1px solid #fff;
   position: absolute;
   left: 50%;
   top: 0px;
   transform: translateX(-50%);
+}
+.goods-info-img img {
+  width: 100%;
+  height: 100%;
 }
 .goods-info-intro {
   position: absolute;
@@ -164,7 +179,6 @@
 }
 .logo-bq {
   width: 50%;
-  border: 1px solid #fff;
   color: #fff;
   position: absolute;
   top: 56%;
@@ -173,13 +187,10 @@
 }
 .footer-logo {
   margin-top: 10px;
-  border: 1px solid gold;
-  box-sizing: border-box;
 }
 .footer-icon {
   width: 60px;
   height: 110px;
-  border: 1px solid #fff;
   position: absolute;
   right: 12px;
   top: 50px;
