@@ -7,7 +7,7 @@
       <x-icon slot="overwrite-left" type="navicon" size="35" style="fill:#222;position:relative;top:-8px;left:-3px;" @click="showMenuModule"></x-icon>
       <img slot="right" :src="iconPhone" alt="test">
     </x-header>
-    <drawer :show.sync="drawerVisibility" :drawer-style="{'background-color':'#fff', width: '100%'}" :style="{height: drawerHeight,}" @touchmove.prevent>
+    <drawer :show.sync="drawerVisibility" :drawer-style="{'background-color':'#fff', width: '100%'}" :style="{height: drawerHeight,}" @touchmove.prevent v-if="drawerVisibility">
       <div slot="drawer"> 
         <div class="close-menu-modal">
           <div class="close-menu-icon" @click="closeModal">x</div>
@@ -23,7 +23,6 @@
           <cell title="产品" link="/product" @click.native="drawerVisibility = false"></cell>
           <cell title="品牌实力" link="/trademark" @click.native="drawerVisibility = false"></cell>
           <cell title="预约" link="/appointment" @click.native="drawerVisibility = false"></cell>
-          <cell title="详情" link="/detail" @click.native="drawerVisibility = false"></cell>
         </group>
       </div>
     </drawer>
@@ -58,7 +57,14 @@
     },
     mounted: function() {
       this.init();
-      this.initHeight();
+
+      //获取浏览器可视区域高度
+      this.clientHeight = `${document.documentElement.clientHeight}`;
+      this.drawerHeight = Number(this.clientHeight) - 60 + 'px';
+      //当窗口或框架发生改变时触发
+      window.onresize = () => {  
+        this.clientHeight = `${document.documentElement.clientHeight}`;
+      };
     },
     watch: {
       // 如果 `clientHeight` 发生改变，这个函数就会运行
@@ -90,16 +96,6 @@
       },
       changeFixed(clientHeight){ //动态修改样式
         this.$refs.headerPage.style.height = clientHeight+'px';
-      },
-      //获取高度
-      initHeight(){  
-          //获取浏览器可视区域高度
-          this.clientHeight = `${document.documentElement.clientHeight}`;
-          this.drawerHeight = Number(this.clientHeight) - 60 + 'px';
-          //当窗口或框架发生改变时触发
-          window.onresize = () => {  
-            this.clientHeight = `${document.documentElement.clientHeight}`;
-          };
       },
       closeModal: function() {
         this.drawerVisibility = false;

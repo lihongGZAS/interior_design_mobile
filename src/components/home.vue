@@ -27,7 +27,9 @@
         </div>
         <div class="series-list-rt">
           <div class="series-rt-img">
-            <img :src="item.ImgUrl" alt="系列图片">
+            <router-link :to="{path: '/detail'}">
+              <img :src="item.ImgUrl" alt="系列图片">
+            </router-link>
           </div>
         </div>
       </div>
@@ -37,15 +39,21 @@
     </div>
     <div class="goods-list">
       <div class="goods-list-icons">
-        <div class="goods-list-icon">
-          <img :src="iconLt" alt="">
+        <div class="goods-list-icon" @click="preSeries">
+          <div class="goods-icon">
+            <img :src="iconLt" alt="">
+          </div>
         </div>
         <div class="goods-list-icon" v-for="(item, i) in showIcons" :key="i">
-          <img :src="item.ImgUrl" alt="">
-          <p>{{item.Name}}</p>
+          <div class="goods-icon">
+            <img :src="item.ImgUrl" alt="">
+          </div>
+          <span>{{item.Name}}</span>
         </div>
-        <div class="goods-list-icon">
-          <img :src="iconRt" alt="">
+        <div class="goods-list-icon" @click="nextSeries">
+          <div class="goods-icon">
+            <img :src="iconRt" alt="">
+          </div>
         </div>
       </div>
       <div class="goods-info-show">
@@ -53,8 +61,7 @@
           <div class="goods-inter">
             <div class="goods-info-img">
               <router-link to="/detail">
-                <!-- <img :src="goods_img" alt="图片"> -->
-                <img src="" alt="test">
+                <img :src="goods_img" alt="图片">
               </router-link>
             </div>
           </div>
@@ -77,11 +84,9 @@
       </div>
       <div class="footer-icon">
         <div class="footer-icon-1">
-          <!-- <img :src="footer_icon1" alt="icon1"> -->
           <span class="go-top-icon">^</span>
         </div>
         <div class="footer-icon-1 footer-bottom-icon">
-          <!-- <img :src="footer_icon2" alt="icon2"> -->
           <span>预约</span>
         </div>
       </div>
@@ -113,13 +118,14 @@ export default {
       
       iconLt: '../../static/images/iconLt.png',
       iconRt: '../../static/images/iconRt.png',
-      // iconHt: '../../static/images/iconHeart.png',
 
+      iconIndex: 0, //当前高亮图标下标值
       productIcons: [], // 未点击时的图标
       productIcons2: [], // 点击过的高亮图标
       productIcons11: [], // 中间值图标数组
       showIcons: [], // 展示出来的图标
 
+      seriesAllImgs: [], // 所有的产品信息
       goods_img: '',
       goods_name: '衣帽柜定制1',
       goods_desc: '现代简约',
@@ -195,6 +201,7 @@ export default {
       })
       .then(response => {
         console.log(response);
+        this.seriesAllImgs = response.data.Sub;
         this.goods_img = response.data.Sub[460].File[0].ImgUrl; // 初始默认为第一个系列的第一张图片
         this.goods_name = response.data.Sub[460].File[0].Name;
         this.goods_desc = response.data.Sub[460].File[0].Desc;
@@ -207,6 +214,60 @@ export default {
     changeFixed(clientHeight){ //动态修改样式
       this.$refs.homePage.style.height = clientHeight+'px';
     },
+    // 点击切换上一个系列
+    preSeries: function() {
+      this.iconIndex++;
+      if(this.iconIndex > 4) {
+        this.iconIndex = 0;
+      }
+      this.showIcons = [];
+      if((this.iconIndex+2) < 5 ) {
+        for(let i=this.iconIndex; i<=this.iconIndex+2; i++) {
+          this.showIcons.push(this.productIcons[i]);
+        }
+      } else if((this.iconIndex+2) === 5) {
+        this.showIcons.push(this.productIcons[3]);
+        this.showIcons.push(this.productIcons[4]);
+        this.showIcons.push(this.productIcons[0]);
+      } else {
+        this.showIcons.push(this.productIcons[4]);
+        this.showIcons.push(this.productIcons[0]);
+        this.showIcons.push(this.productIcons[1]);
+      }
+
+      for(let k=0; k<this.productIcons2.length; k++) {
+        if(this.showIcons[0].Name === this.productIcons2[k].Name) {
+          this.showIcons[0] = this.productIcons2[k]; // 设置第一个系列图标高亮显示
+        }
+      }
+    },
+    // 点击切换下一个系列
+    nextSeries: function() {
+      this.iconIndex--;
+      if(this.iconIndex < 0) {
+        this.iconIndex = 4;
+      }
+      this.showIcons = [];
+      if(this.iconIndex === 4) {
+        this.showIcons.push(this.productIcons[4]);
+        this.showIcons.push(this.productIcons[0]);
+        this.showIcons.push(this.productIcons[1]);
+      } else if(this.iconIndex === 3) {
+        this.showIcons.push(this.productIcons[3]);
+        this.showIcons.push(this.productIcons[4]);
+        this.showIcons.push(this.productIcons[0]);
+      } else {
+        this.showIcons.push(this.productIcons[this.iconIndex]);
+        this.showIcons.push(this.productIcons[this.iconIndex+1]);
+        this.showIcons.push(this.productIcons[this.iconIndex+2]);
+      }
+
+      for(let k=0; k<this.productIcons2.length; k++) {
+        if(this.showIcons[0].Name === this.productIcons2[k].Name) {
+          this.showIcons[0] = this.productIcons2[k]; // 设置第一个系列图标高亮显示
+        }
+      }
+    }
   }
 }
 </script>

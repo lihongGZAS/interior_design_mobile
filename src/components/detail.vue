@@ -44,13 +44,17 @@ export default {
       this.$refs.detailPage.style.height = clientHeight+'px';
     },
     getInfo: function() {
-      this.$http.get("https://www.ehometd.com/temporary/api/other/all.php?fc=bianlifile&FID=440&Class=3", {
+      // 请求产品信息
+      this.$http.get("https://www.ehometd.com/temporary/api/other/all.php?fc=bianlifile&FID=459&Class=3", {
         params: {
-          ID: 12345
+          ID: 459
         }
       })
       .then(response => {
         console.log(response);
+        this.nowImg = response.data.Sub[460].File[0].ImgUrl; // 初始默认为第一个系列的第一张图片
+        this.goods_name = response.data.Sub[460].File[0].Name;
+        this.goods_style = response.data.Sub[460].File[0].Desc;
       })
       .catch(function(error) {
         console.log(error);

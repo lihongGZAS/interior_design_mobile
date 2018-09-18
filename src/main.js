@@ -5,9 +5,11 @@ import App from './App'
 import router from './router'
 import $ from 'jquery'
 import axios from "axios"
+import vueResource from 'vue-resource';
 
 Vue.config.productionTip = false
 Vue.prototype.$http = axios; // 通过原型链的方式可以在任何组件下调用axios
+Vue.use(vueResource);
 
 /* eslint-disable no-new */
 new Vue({
