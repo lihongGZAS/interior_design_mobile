@@ -10,7 +10,9 @@
           <h4>{{item.P2}}</h4>
           <p>{{item.P3}}</p>
           <div class="detail-btn-box">
-            <div class="detail-vux-button">更多详情</div>
+            <div class="detail-vux-button">
+              <router-link to="/detail">更多详情</router-link>
+            </div>
           </div>
         </div>
       </div>

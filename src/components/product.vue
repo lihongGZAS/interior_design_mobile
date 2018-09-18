@@ -5,22 +5,30 @@
     </div>
     <div class="goods-list">
       <div class="goods-list-icons">
-        <div class="goods-list-icon">
-          <img :src="iconLt" alt="">
+        <div class="goods-list-icon" @click="preSeries">
+          <div class="goods-icon">
+            <img :src="iconLt" alt="">
+          </div>
         </div>
         <div class="goods-list-icon" v-for="(item, i) in showIcons" :key="i">
-          <img :src="item.ImgUrl" alt="">
-          <p>{{item.Name}}</p>
+          <div class="goods-icon">
+            <img :src="item.ImgUrl" alt="">
+          </div>
+          <span>{{item.Name}}</span>
         </div>
-        <div class="goods-list-icon">
-          <img :src="iconRt" alt="">
+        <div class="goods-list-icon" @click="nextSeries">
+          <div class="goods-icon">
+            <img :src="iconRt" alt="">
+          </div>
         </div>
       </div>
       <div class="goods-info-show" v-for="(item, i) in showImages" :key="i">
         <div class="goods-img-pos">
           <div class="goods-inter">
             <div class="goods-info-img">
-              <img :src="item.ImgUrl" alt="图片">
+              <router-link to="/detail">
+                <img :src="item.ImgUrl" alt="图片">
+              </router-link>
             </div>
           </div>
           <div class="goods-info-intro">
@@ -42,6 +50,7 @@ export default {
       productIcons: [],
       productIcons2: [],
       productIcons11: [],
+      iconIndex: 0,
       showIcons: [],
       iconLt: '../../static/images/iconLt.png',
       iconRt: '../../static/images/iconRt.png',
@@ -89,20 +98,7 @@ export default {
               this.showIcons[0] = this.productIcons2[k]; // 设置第一个系列图标高亮显示
             }
           }
-
-          for (let i in this.productAllImgs) {
-            if (this.productIcons[0].Name === this.productAllImgs[i].Name) {
-              this.getShowImg = this.productAllImgs[i].File; // 获取点击的那个系列的图片
-              if(this.getShowImg.length >= 5) {  // 显示5张图片
-                for(let i=0; i<5; i++) {
-                  this.showImages.push(this.getShowImg[i]);
-                }
-              }
-              else {
-                this.showImages = this.getShowImg;
-              }
-            }
-          }
+          this.choiseImgs();
         })
         .catch(function(error) {
           console.log(error);
@@ -113,6 +109,73 @@ export default {
       });
       
     },
+    choiseImgs: function() {
+      for (let i in this.productAllImgs) {
+        if (this.showIcons[0].Name === this.productAllImgs[i].Name) {
+          this.showImages = this.productAllImgs[i].File;
+        }
+      }
+    },
+    // 点击切换上一个系列
+    preSeries: function() {
+      this.iconIndex++;
+      if(this.iconIndex > 4) {
+        this.iconIndex = 0;
+      }
+      this.showIcons = [];
+      if((this.iconIndex+2) < 5 ) {
+        for(let i=this.iconIndex; i<=this.iconIndex+2; i++) {
+          this.showIcons.push(this.productIcons[i]);
+        }
+      } else if((this.iconIndex+2) === 5) {
+        this.showIcons.push(this.productIcons[3]);
+        this.showIcons.push(this.productIcons[4]);
+        this.showIcons.push(this.productIcons[0]);
+      } else {
+        this.showIcons.push(this.productIcons[4]);
+        this.showIcons.push(this.productIcons[0]);
+        this.showIcons.push(this.productIcons[1]);
+      }
+
+      for(let k=0; k<this.productIcons2.length; k++) {
+        if(this.showIcons[0].Name === this.productIcons2[k].Name) {
+          this.showIcons[0] = this.productIcons2[k]; // 设置第一个系列图标高亮显示
+        }
+      }
+      
+      // 切换不同系列显示当前系列图片
+      this.choiseImgs();
+    },
+    // 点击切换下一个系列
+    nextSeries: function() {
+      this.iconIndex--;
+      if(this.iconIndex < 0) {
+        this.iconIndex = 4;
+      }
+      this.showIcons = [];
+      if(this.iconIndex === 4) {
+        this.showIcons.push(this.productIcons[4]);
+        this.showIcons.push(this.productIcons[0]);
+        this.showIcons.push(this.productIcons[1]);
+      } else if(this.iconIndex === 3) {
+        this.showIcons.push(this.productIcons[3]);
+        this.showIcons.push(this.productIcons[4]);
+        this.showIcons.push(this.productIcons[0]);
+      } else {
+        this.showIcons.push(this.productIcons[this.iconIndex]);
+        this.showIcons.push(this.productIcons[this.iconIndex+1]);
+        this.showIcons.push(this.productIcons[this.iconIndex+2]);
+      }
+
+      for(let k=0; k<this.productIcons2.length; k++) {
+        if(this.showIcons[0].Name === this.productIcons2[k].Name) {
+          this.showIcons[0] = this.productIcons2[k]; // 设置第一个系列图标高亮显示
+        }
+      }
+
+      // 切换不同系列显示当前系列图片
+      this.choiseImgs();
+    }
   }
 }
 </script>

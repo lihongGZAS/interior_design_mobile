@@ -84,10 +84,12 @@
       </div>
       <div class="footer-icon">
         <div class="footer-icon-1">
-          <span class="go-top-icon">^</span>
+          <span class="go-top-icon" @click="toTop">^</span>
         </div>
         <div class="footer-icon-1 footer-bottom-icon">
-          <span>预约</span>
+          <span>
+            <router-link to="appointment">预约</router-link>
+          </span>
         </div>
       </div>
     </div>
@@ -109,7 +111,8 @@ export default {
       homeImgHeight: 0,
       indexImg: '',
       home_top_logo: '',
-      company_home_desc: '',
+      
+      company_home_desc: '专业致力于全屋定制研发、制造、销售于一体企业',
       company_intrro_title: '',
       company_intro_text: '',
       company_intro_img: '',
@@ -155,7 +158,6 @@ export default {
       })
       .then(response => {
         this.indexImg = response.data.Sub[488].File[0].ImgUrl;
-        this.company_home_desc = '专业致力于全屋定制研发、制造、销售于一体企业';
         this.company_intrro_title = response.data.Sub[478].File[0].P1;
         this.company_intro_text = response.data.Sub[478].File[0].P2;
         this.company_intro_img = response.data.Sub[478].File[0].ImgUrl;
@@ -200,7 +202,6 @@ export default {
         }
       })
       .then(response => {
-        console.log(response);
         this.seriesAllImgs = response.data.Sub;
         this.goods_img = response.data.Sub[460].File[0].ImgUrl; // 初始默认为第一个系列的第一张图片
         this.goods_name = response.data.Sub[460].File[0].Name;
@@ -240,6 +241,15 @@ export default {
           this.showIcons[0] = this.productIcons2[k]; // 设置第一个系列图标高亮显示
         }
       }
+      
+      // 切换不同系列显示当前系列第一张图
+      for (let i in this.seriesAllImgs) {
+        if (this.showIcons[0].Name === this.seriesAllImgs[i].Name) {
+          this.goods_img = this.seriesAllImgs[i].File[0].ImgUrl; // 初始默认为第一个系列的第一张图片
+          this.goods_name = this.seriesAllImgs[i].File[0].Name;
+          this.goods_desc = this.seriesAllImgs[i].File[0].Desc;
+        }
+      }
     },
     // 点击切换下一个系列
     nextSeries: function() {
@@ -267,6 +277,18 @@ export default {
           this.showIcons[0] = this.productIcons2[k]; // 设置第一个系列图标高亮显示
         }
       }
+
+      // 切换不同系列显示当前系列第一张图
+      for (let i in this.seriesAllImgs) {
+        if (this.showIcons[0].Name === this.seriesAllImgs[i].Name) {
+          this.goods_img = this.seriesAllImgs[i].File[0].ImgUrl; // 初始默认为第一个系列的第一张图片
+          this.goods_name = this.seriesAllImgs[i].File[0].Name;
+          this.goods_desc = this.seriesAllImgs[i].File[0].Desc;
+        }
+      }
+    },
+    toTop: function() {
+      scroll(0,0);
     }
   }
 }

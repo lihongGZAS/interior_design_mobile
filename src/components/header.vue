@@ -83,7 +83,6 @@
           }
         })
         .then(response => {
-          console.log(response);
           this.menuLogo = response.data.Sub[483].File[0].ImgUrl;
           this.menu_modal_logo = response.data.Sub[483].File[2].ImgUrl;
         })

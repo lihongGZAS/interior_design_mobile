@@ -60,6 +60,10 @@ input::-webkit-input-placeholder {
   top: 0;
   left: 0;
 }
+.go-to-home a {
+  text-decoration: none;
+  color: #222;
+}
 .submit-btn {
   top: 0;
   right: 0;

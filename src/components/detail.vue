@@ -51,7 +51,6 @@ export default {
         }
       })
       .then(response => {
-        console.log(response);
         this.nowImg = response.data.Sub[460].File[0].ImgUrl; // 初始默认为第一个系列的第一张图片
         this.goods_name = response.data.Sub[460].File[0].Name;
         this.goods_style = response.data.Sub[460].File[0].Desc;

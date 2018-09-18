@@ -6,7 +6,9 @@
       <input type="text" placeholder="手机" v-model="inputPhone" class="appointmant-inputs input-phone">
       <textarea name="" id="" cols="30" rows="6" placeholder="备注"></textarea>
       <div class="appointment-btn-box">
-        <div class="go-to-home appoint-btn">返回首页</div>
+        <div class="go-to-home appoint-btn">
+          <router-link to="/">返回首页</router-link>
+        </div>
         <div class="submit-btn appoint-btn">确定</div>
       </div>
     </div>
