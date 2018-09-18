@@ -46,7 +46,6 @@ export default {
         }
       })
       .then(response => {
-        console.log(response);
         this.seriesData = response.data.Sub[482].File;
       })
       .catch(function(error) {

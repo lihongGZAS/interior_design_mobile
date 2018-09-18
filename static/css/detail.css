@@ -1,0 +1,33 @@
+.detail-div {
+  width: 100%;
+}
+.inner-detail-div {
+  width: 92%;
+  margin-left: 4%;
+}
+.detail-imgs-box {
+  width: 100%;
+  height: 260px;
+  border: 1px solid red;
+  box-sizing: border-box;
+}
+.goods-simple-intro {
+  width: 100%;
+  border: 1px solid red;
+  box-sizing: border-box;
+  padding-top: 14px;
+  padding-bottom: 20px;
+}
+.goods-simple-intro span.goods-name-text {
+  display: block;
+  font-size: 20px;
+  margin-bottom: 10px;
+}
+.goods-detail-intro {
+  width: 100%;
+  border: 1px solid red;
+  box-sizing: border-box;
+  background: #f4f4f4;
+  padding: 10px 6px;
+  text-align: left;
+}

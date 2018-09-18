@@ -51,10 +51,9 @@
 }
 .goods-info-img {
   width: 88%;
-  border: 1px solid #fff;
   position: absolute;
   left: 50%;
-  top: 0px;
+  top: 16px;
   transform: translateX(-50%);
 }
 .goods-info-img img {
@@ -63,7 +62,7 @@
 }
 .goods-info-intro {
   position: absolute;
-  bottom: 20px;
+  bottom: 10px;
   left: 50%;
   transform: translateX(-50%);
   vertical-align: middle;

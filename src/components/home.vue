@@ -1,6 +1,6 @@
 <template>
-  <div class="home-div">
-    <div class="home-desc-img" :style="{height: homeImgHeight + 'px'}">
+  <div ref="homePage" class="home-div" :style="{height: homeImgHeight + 'px', marginTop: '-' + homeImgHeight + 'px'}">
+    <div class="home-desc-img" :style="{height: '100%'}">
       <img :src="indexImg" alt="首页宣传图片">
       <div class="company-logo-desc">
         <div class="home-top-logo">
@@ -52,7 +52,10 @@
         <div class="goods-img-pos">
           <div class="goods-inter">
             <div class="goods-info-img">
-              <img :src="goods_img" alt="图片">
+              <router-link to="/detail">
+                <!-- <img :src="goods_img" alt="图片"> -->
+                <img src="" alt="test">
+              </router-link>
             </div>
           </div>
           <div class="goods-info-intro">
@@ -74,10 +77,12 @@
       </div>
       <div class="footer-icon">
         <div class="footer-icon-1">
-          <img :src="footer_icon1" alt="icon1">
+          <!-- <img :src="footer_icon1" alt="icon1"> -->
+          <span class="go-top-icon">^</span>
         </div>
-        <div class="footer-icon-1">
-          <img :src="footer_icon2" alt="icon2">
+        <div class="footer-icon-1 footer-bottom-icon">
+          <!-- <img :src="footer_icon2" alt="icon2"> -->
+          <span>预约</span>
         </div>
       </div>
     </div>
@@ -127,12 +132,13 @@ export default {
   mounted: function() {
     this.init();
     this.clientHeight = `${document.documentElement.clientHeight}`;
-    console.log(this.clientHeight);
-
-    this.homeImgHeight = Number(this.clientHeight) - 52;
-    this.margin_top = Number(this.clientHeight) - 60 + 'px';
-    console.log(this.margin_top);
-    // console.log(this.$refs.headerPage.offsetHight);
+    this.homeImgHeight = Number(this.clientHeight) - 60;
+  },
+  watch: {
+    // 如果 `clientHeight` 发生改变，这个函数就会运行
+    clientHeight: function () {
+      this.changeFixed(this.clientHeight)
+    }
   },
   methods: {
     init: function() {
@@ -197,7 +203,10 @@ export default {
         console.log(error);
       });
 
-    }
+    },
+    changeFixed(clientHeight){ //动态修改样式
+      this.$refs.homePage.style.height = clientHeight+'px';
+    },
   }
 }
 </script>

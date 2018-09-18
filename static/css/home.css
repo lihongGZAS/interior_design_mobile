@@ -1,5 +1,5 @@
 .home-div {
-  margin-top: -610px;
+  width: 100%;
 }
 .home-desc-img {
   width: 100%;
@@ -149,10 +149,9 @@
 }
 .goods-info-img {
   width: 88%;
-  border: 1px solid #fff;
   position: absolute;
   left: 50%;
-  top: 0px;
+  top: 16px;
   transform: translateX(-50%);
 }
 .goods-info-img img {
@@ -161,7 +160,7 @@
 }
 .goods-info-intro {
   position: absolute;
-  bottom: 20px;
+  bottom: 12px;
   left: 50%;
   transform: translateX(-50%);
   vertical-align: middle;
@@ -186,18 +185,34 @@
   transform: translate(-50%, -50%);
 }
 .footer-logo {
-  margin-top: 10px;
+  margin-top: 20px;
 }
 .footer-icon {
-  width: 60px;
-  height: 110px;
+  width: 54px;
+  height: 120px;
   position: absolute;
   right: 12px;
   top: 50px;
 }
 .footer-icon-1 {
-  width: 60px;
-  height: 55px;
-  border: 1px solid red;
-  box-sizing: border-box;
+  width: 54px;
+  height: 54px;
+  background: #fff;
+  color: #222;
+  border-radius: 50%;
+  position: relative;
+}
+.footer-bottom-icon {
+  margin-top: 12px;
+}
+.footer-icon-1 span {
+  display: inline-block;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 13px;
+}
+.footer-icon-1 span.go-top-icon {
+  font-size: 24px;
 }

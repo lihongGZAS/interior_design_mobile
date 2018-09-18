@@ -1,19 +1,29 @@
 <template>
-  <div ref="headerPage">
-    <x-header :right-options="{showMore: true}" style="background-color:#fff;" @on-click-more="showMenus = true">
+  <div ref="headerPage" class="header-menu">
+    <x-header style="background-color:#fff;" @on-click-more="showMenus = true" @touchmove.prevent>
       <span>
         <img :src="menuLogo" alt="">
       </span>
       <x-icon slot="overwrite-left" type="navicon" size="35" style="fill:#222;position:relative;top:-8px;left:-3px;" @click="showMenuModule"></x-icon>
+      <img slot="right" :src="iconPhone" alt="test">
     </x-header>
-    <drawer :show.sync="drawerVisibility" :drawer-style="{'background-color':'#888', width: '100%'}" :style="{height: drawerHeight}">
-      <div slot="drawer" @touchmove.prevent>
+    <drawer :show.sync="drawerVisibility" :drawer-style="{'background-color':'#fff', width: '100%'}" :style="{height: drawerHeight,}" @touchmove.prevent>
+      <div slot="drawer"> 
+        <div class="close-menu-modal">
+          <div class="close-menu-icon" @click="closeModal">x</div>
+        </div> 
+        <div class="menu-logo-box">
+          <div class="menu-modal-logo">
+            <img :src="menu_modal_logo" alt="">
+          </div>
+        </div>
         <group style="margin-top:20px;">
           <cell title="首页" link="/" @click.native="drawerVisibility = false"></cell>
           <cell title="全屋定制" link="/customization" @click.native="drawerVisibility = false"></cell>
           <cell title="产品" link="/product" @click.native="drawerVisibility = false"></cell>
           <cell title="品牌实力" link="/trademark" @click.native="drawerVisibility = false"></cell>
-          <cell title="预约" link="/trademark" @click.native="drawerVisibility = false"></cell>
+          <cell title="预约" link="/appointment" @click.native="drawerVisibility = false"></cell>
+          <cell title="详情" link="/detail" @click.native="drawerVisibility = false"></cell>
         </group>
       </div>
     </drawer>
@@ -40,7 +50,9 @@
         showMenus: false,
         drawerVisibility: false,
         clientHeight: '',
+        iconPhone: '../../static/images/iconPhone.png',
         menuLogo: '',
+        menu_modal_logo: '',
         drawerHeight: ''
       }
     },
@@ -65,8 +77,9 @@
           }
         })
         .then(response => {
-          // console.log(response);
+          console.log(response);
           this.menuLogo = response.data.Sub[483].File[0].ImgUrl;
+          this.menu_modal_logo = response.data.Sub[483].File[2].ImgUrl;
         })
         .catch(function(error) {
           console.log(error);
@@ -83,11 +96,13 @@
           //获取浏览器可视区域高度
           this.clientHeight = `${document.documentElement.clientHeight}`;
           this.drawerHeight = Number(this.clientHeight) - 60 + 'px';
-          // console.log(this.clientHeight);
           //当窗口或框架发生改变时触发
           window.onresize = () => {  
             this.clientHeight = `${document.documentElement.clientHeight}`;
           };
+      },
+      closeModal: function() {
+        this.drawerVisibility = false;
       }
     }
   }
@@ -95,20 +110,5 @@
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-  .vux-drawer {
-    z-index: 999;
-  }
-  .vux-header {
-    height: 60px;
-  }
- .vux-header-title {
-    height: 52px !important;
-  }
-  .vux-header .vux-header-title > span {
-    height: 52px !important;
-  }
-  .vux-header-title-area, .vux-header .vux-header-title>span>img{
-    height: 32px;
-    margin-top: 10px;
-  }
+  @import '../../static/css/header.css'
 </style>
