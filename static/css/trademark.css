@@ -34,7 +34,8 @@
 .series-desc p {
   text-align: left;
 }
-.series-desc h4 {
+.series-desc span {
+  display: block;
   margin-top: 10px;
   margin-bottom: 14px;
 }

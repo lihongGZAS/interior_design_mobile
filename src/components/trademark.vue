@@ -9,7 +9,7 @@
             </div>
             <div class="series-desc">
               <h3>{{item.P1}}</h3>
-              <h4>{{item.P2}}</h4>
+              <span>{{item.P2}}</span>
               <p>{{item.P3}}</p>
             </div>
           </div>
@@ -55,7 +55,8 @@ export default {
         }
       })
       .then(response => {
-        this.seriesData = response.data.Sub[482].File;
+        // console.log(response);
+        this.seriesData = response.data.Sub[487].File;
       })
       .catch(function(error) {
         console.log(error);

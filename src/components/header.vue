@@ -7,10 +7,12 @@
       <x-icon slot="overwrite-left" type="navicon" size="35" style="fill:#222;position:relative;top:-8px;left:-3px;" @click="showMenuModule"></x-icon>
       <img slot="right" :src="iconPhone" alt="test">
     </x-header>
-    <drawer :show.sync="drawerVisibility" :drawer-style="{'background-color':'#fff', width: '100%'}" :style="{height: drawerHeight,}" @touchmove.prevent v-if="drawerVisibility">
+    <drawer :show.sync="drawerVisibility" :drawer-style="{'background-color':'#fff', width: '100%',border: 'none'}" :style="{height: drawerHeight,}" @touchmove.prevent v-if="drawerVisibility">
       <div slot="drawer"> 
         <div class="close-menu-modal">
-          <div class="close-menu-icon" @click="closeModal">x</div>
+          <div class="close-menu-icon" @click="closeModal">
+            <img :src="closeIcon" alt="">
+          </div>
         </div> 
         <div class="menu-logo-box">
           <div class="menu-modal-logo">
@@ -52,7 +54,8 @@
         iconPhone: '../../static/images/iconPhone.png',
         menuLogo: '',
         menu_modal_logo: '',
-        drawerHeight: ''
+        drawerHeight: '',
+        closeIcon: ''
       }
     },
     mounted: function() {
@@ -83,8 +86,10 @@
           }
         })
         .then(response => {
+          console.log(response);
           this.menuLogo = response.data.Sub[483].File[0].ImgUrl;
           this.menu_modal_logo = response.data.Sub[483].File[2].ImgUrl;
+          this.closeIcon = response.data.Sub[533].File[4].ImgUrl;
         })
         .catch(function(error) {
           console.log(error);
@@ -103,7 +108,20 @@
   }
 </script>
 
+<style>
+  .weui-cells:before {
+    width: 0px;
+  }
+  .weui-cells:after {
+    width: 0px;
+  }
+  .weui-cell_access .weui-cell__ft:after {
+    border-style: none !important;
+  }
+</style>
+
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
   @import '../../static/css/header.css'
 </style>
+

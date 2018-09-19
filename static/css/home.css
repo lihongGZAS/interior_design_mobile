@@ -153,7 +153,7 @@
 .goods-img-pos {
   width: 80%;
   height: 350px;
-  box-shadow: 0 0 8px #999;
+  box-shadow: 0 0 8px #e4e1e1;
   position: absolute;
   left: 50%;
   top: 50%;
@@ -226,8 +226,12 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  font-size: 13px;
 }
-.footer-icon-1 span.go-top-icon {
+.footer-icon-1 span{
   font-size: 24px;
+}
+.go-to-appointment a {
+  text-decoration: none;
+  color: #222;
+  font-size: 13px;
 }

@@ -20,7 +20,12 @@
     </div>
     <div class="series-list">
       <div class="series-list-info" v-for="(item, i) in seriesData" :key="i">
-        <div class="series-list-lt">
+        <div class="series-list-lt" v-if="i===1" :style="{background: '#fccb42'}">
+          <span>{{item.P1}}</span>
+          <h3>{{item.P2}}</h3>
+          <span class="see-more-span">+</span>
+        </div>
+        <div class="series-list-lt" v-else>
           <span>{{item.P1}}</span>
           <h3>{{item.P2}}</h3>
           <span class="see-more-span">+</span>
@@ -87,7 +92,7 @@
           <span class="go-top-icon" @click="toTop">^</span>
         </div>
         <div class="footer-icon-1 footer-bottom-icon">
-          <span>
+          <span class="go-to-appointment">
             <router-link to="appointment">预约</router-link>
           </span>
         </div>
@@ -117,6 +122,7 @@ export default {
       company_intro_text: '',
       company_intro_img: '',
 
+      getSeriesData: [],
       seriesData: [],
       
       iconLt: '../../static/images/iconLt.png',
@@ -162,7 +168,18 @@ export default {
         this.company_intro_text = response.data.Sub[478].File[0].P2;
         this.company_intro_img = response.data.Sub[478].File[0].ImgUrl;
 
-        this.seriesData = response.data.Sub[477].File;
+        this.getSeriesData = response.data.Sub[477].File;
+
+        if(this.getSeriesData
+        .length > 3) {
+          for(let i=0; i<3; i++) {
+            this.seriesData.push(this.getSeriesData[i]);
+          }
+        } else {
+          this.seriesData = this.getSeriesData;
+        }
+        this.iconLt = response.data.Sub[533].File[5].ImgUrl;
+        this.iconRt = response.data.Sub[533].File[6].ImgUrl;
 
         this.home_top_logo = response.data.Sub[483].File[3].ImgUrl;
         this.footer_logo = response.data.Sub[483].File[1].ImgUrl;

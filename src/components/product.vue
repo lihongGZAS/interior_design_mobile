@@ -89,6 +89,9 @@ export default {
           this.productIcons = response.data.Sub[527].Sub[528].File;
           this.productIcons2 = response.data.Sub[527].Sub[529].File;
 
+          this.iconLt = response.data.Sub[533].File[5].ImgUrl;
+          this.iconRt = response.data.Sub[533].File[6].ImgUrl;
+
           this.productIcons11 = JSON.parse(JSON.stringify(this.productIcons)); // 深拷贝获取初始productIcons的数据
           for(let i=0; i<3; i++) {
             this.showIcons.push(this.productIcons11[i]);
